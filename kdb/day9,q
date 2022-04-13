@@ -1,0 +1,13 @@
+input:"J"$/:read0 hsym `$"C:/Users/cwright/Desktop/Work/GIT/AdventOfCode_2020/questions/input9.txt";
+combo:{[n;r]indN:ind:til count n;do[r-1;indN:indN cross ind];indN:indN where r={count distinct x}each indN:distinct asc each indN;n indN};
+getList:{[ind]inds:reverse ind -til 26;input inds};
+accept:{[list]last[list]in raze sum each combo[-1_list;2]};
+findError:{[ind]if[-11h=type ind;:ind];if[not accept[getList[ind]];:`$string input ind];ind+1};
+day9.1:"J"$findError/[26] //Note the result comes back as a symbol
+
+//Part 2
+window:{[list;n]{x til y}[;n]each -1_{1_x}\[list]};
+findSum:{[ind;n]l:input til ind;winds:winds where {not any null x} each winds:window[l;n];winds where input[ind]=sum each winds};
+part2:{[ans;n]ind:input?ans;list:findSum[ind;n];if[count list;:list];0N!"No match found for lists size ",string n;.z.s[ans;n+1]};
+day9.2:fixError[day9.1;2];
+
